@@ -1,40 +1,59 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row class="text-center">
       <v-col cols="12">
-        <v-img
-          :src="require('../../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        />
+        <v-icon icon="mdi-package-variant-closed" color="red" size="100"></v-icon>
       </v-col>
 
-      <v-col class="mb-4">
+      <v-col cols="12">
         <h1 class="display-2 font-weight-bold mb-3">
-          Bem vindo a listagem de produtos
+          Produtos
         </h1>
-
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br />please join our online
-          <a href="https://community.vuetifyjs.com" target="_blank"
-            >Discord Community</a
-          >
-        </p>
       </v-col>
 
-      <v-col class="mb-5" cols="12">
-        <h2 class="headline font-weight-bold mb-5">What's next?</h2>
+      <v-col cols="3" v-for="produto in produtos" :key="produto['id']">
+        <v-card elevation="10" color="#f4c808">
+          <div class="text-start">
+            <v-card-title class="text-h5">
+              {{ produto['nome'] }}
+            </v-card-title>
+
+            <v-card-subtitle>{{ produto['codigobarra'] }}</v-card-subtitle>
+          </div>
+          <v-card-text class="py-0 text-end mt-4">
+            <span class="text-h4">
+              R$ {{ produto['preco'] }}
+            </span>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-list-item class="w-100">
+
+
+              <template v-slot:append>
+                <div class="justify-self-end">
+                  <v-icon class="me-1" icon="mdi-tag-multiple"></v-icon>
+                  <span class="subheading mr-4">{{ produto['quantidade'] }}</span>
+                  <v-icon class="me-1" icon="mdi-identifier"></v-icon>
+                  <span class="subheading">{{ produto['id'] }}</span>
+                </div>
+              </template>
+              <div class="text-left">
+                <v-btn color="red" variant="flat">
+                  Deletar
+                </v-btn>
+                <v-btn color="dark" variant="text">
+                  Alterar
+                </v-btn>
+              </div>
+            </v-list-item>
+
+          </v-card-actions>
+
+
+        </v-card>
       </v-col>
 
-      <v-col class="mb-5" cols="12">
-        <h2 class="headline font-weight-bold mb-5">Important Links</h2>
-      </v-col>
-
-      <v-col class="mb-5" cols="12">
-        <h2 class="headline font-weight-bold mb-5">Ecosystem</h2>
-      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -46,8 +65,16 @@ export default defineComponent({
   name: "ListarProduto",
 
   data() {
-    return {};
+    return {
+      produtos: []
+    }
   },
+  async mounted() {
+    await this.axios
+      .get('http://localhost:8080/produto')
+      .then(response => (this.produtos = response.data))
+    console.log(this.produtos[0])
+  }
 });
 </script>
   
