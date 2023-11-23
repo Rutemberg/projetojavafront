@@ -10,11 +10,12 @@
 
     <v-navigation-drawer expand-on-hover rail>
       <v-list>
-        <v-list-item prepend-icon="mdi-home" title="Home" to="/"></v-list-item>
+        <v-list-item color="#B81014" prepend-icon="mdi-home" title="Home" to="/"></v-list-item>
         <v-list-group>
           <template v-slot:activator="{ props }">
             <v-list-item
               v-bind="props"
+              color="#B81014"
               prepend-icon="mdi-package-variant-closed"
               title="Produtos"
             ></v-list-item>
@@ -26,6 +27,7 @@
             :title="title"
             :prepend-icon="icon"
             :to="link"
+            color="#B81014"
           ></v-list-item>
         </v-list-group>
       </v-list>
@@ -46,10 +48,10 @@ export default defineComponent({
   data() {
     return {
       crud_produto: [
-        ["Cadastrar", "mdi-plus", "/"],
+        ["Cadastrar", "mdi-plus-thick", "/produto/cadastro"],
         ["Listar", "mdi-view-list", "/produtos"],
       ],
     };
-  },
+  }
 });
 </script>

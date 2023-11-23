@@ -1,18 +1,7 @@
 <template>
   <v-container fluid>
     <v-row class="text-center">
-      <v-col cols="12">
-        <v-icon
-          icon="mdi-package-variant-closed"
-          color="red"
-          size="100"
-        ></v-icon>
-      </v-col>
-
-      <v-col cols="12">
-        <h1 class="display-2 font-weight-bold mb-3">Produtos</h1>
-      </v-col>
-
+      <titulo-bar title="Produtos" icon="mdi-package-variant-closed"></titulo-bar>
       <v-col cols="3" v-for="produto in produtos" :key="produto['id']">
         <v-card elevation="10" color="#f4c808">
           <div class="text-start">
@@ -20,13 +9,19 @@
               {{ produto["nome"] }}
             </v-card-title>
 
-            <v-card-subtitle>{{ produto["codigobarra"] }}</v-card-subtitle>
+            <v-card-subtitle>
+              <v-chip variant="outlined" class="ma-2" color="black" label>
+                <v-icon start icon="mdi-label"></v-icon>
+                {{ produto["codigobarra"] }}</v-chip
+              >
+            </v-card-subtitle>
           </div>
           <v-card-text class="py-0 text-end mt-4">
-            <span class="text-h4"> R$ {{ produto["preco"] }} </span>
+            <span class="text-h4">
+              R$ {{ formatPrice(produto["preco"]) }}
+            </span>
           </v-card-text>
-
-          <v-card-actions>
+          <v-card-actions class="mt-3">
             <v-list-item class="w-100">
               <template v-slot:append>
                 <div class="justify-self-end">
@@ -52,10 +47,13 @@
   
 <script lang='ts'>
 import { defineComponent } from "vue";
+import TituloBar from "../TituloBar.vue";
 
 export default defineComponent({
   name: "ListarProduto",
-
+  components: {
+    TituloBar,
+  },
   data() {
     return {
       produtos: [],
@@ -66,6 +64,12 @@ export default defineComponent({
       .get("http://localhost:8080/produto")
       .then((response) => (this.produtos = response.data));
     console.log(this.produtos[0]);
+  },
+  methods: {
+    formatPrice(value: number) {
+      let val = (value / 1).toFixed(2).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
   },
 });
 </script>
