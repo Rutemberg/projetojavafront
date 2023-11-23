@@ -7,47 +7,49 @@
       ></titulo-bar>
     </v-row>
     <v-row class="text-center" justify="center">
-      <v-col cols="12" class="border" md="6">
-        <v-form @submit.prevent="submitForm" fast-fail>
-          <v-container>
-            <v-row>
-              <v-col cols="12" md="6">
-                <v-text-field
-                  v-model="form.nome"
-                  label="Nome"
-                  hide-details
-                ></v-text-field>
-              </v-col>
+      <v-col cols="12" md="6">
+        <v-sheet color="#f4c808" rounded>
+          <v-form @submit.prevent="submitForm" fast-fail>
+            <v-container>
+              <v-row class="pa-6">
+                <v-col cols="12" md="6">
+                  <v-text-field
+                    v-model="form.nome"
+                    label="Nome"
+                    hide-details
+                  ></v-text-field>
+                </v-col>
 
-              <v-col cols="12" md="3">
-                <v-text-field
-                  v-model="form.quantidade"
-                  label="Quantidade"
-                  hide-details
-                ></v-text-field>
-              </v-col>
+                <v-col cols="12" md="3">
+                  <v-text-field
+                    v-model="form.quantidade"
+                    label="Quantidade"
+                    hide-details
+                  ></v-text-field>
+                </v-col>
 
-              <v-col cols="12" md="3">
-                <v-text-field
-                  v-model="form.preco"
-                  label="Preço"
-                  hide-details
-                  type="number"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" md="12">
-                <v-text-field
-                  v-model="form.codigobarra"
-                  label="Código de barra"
-                  hide-details
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" md="12">
-                <v-btn color="#b81014" type="submit"> Cadastrar </v-btn>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-form>
+                <v-col cols="12" md="3">
+                  <v-text-field
+                    v-model="form.preco"
+                    label="Preço"
+                    hide-details
+                    type="number"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="12">
+                  <v-text-field
+                    v-model="form.codigobarra"
+                    label="Código de barra"
+                    hide-details
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" md="12">
+                  <v-btn color="#b81014" type="submit"> Cadastrar </v-btn>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-form>
+        </v-sheet>
       </v-col>
     </v-row>
     <v-row class="text-center" justify="center">
