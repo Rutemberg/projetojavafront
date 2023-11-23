@@ -1,6 +1,6 @@
 <template>
   <v-col cols="12">
-    <v-icon :icon="icon" color="red" size="100"></v-icon>
+    <v-icon :icon="icon" color="#b81014" size="100"></v-icon>
   </v-col>
 
   <v-col cols="12">

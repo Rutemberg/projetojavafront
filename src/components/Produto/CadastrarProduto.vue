@@ -52,14 +52,29 @@
         </v-sheet>
       </v-col>
     </v-row>
-    <v-row class="text-center" justify="center">
-      <v-col cols="4">
-        <v-alert border :type="alert.type" v-if="alert.active" closable>
-          {{ alert.text }}
-        </v-alert>
-      </v-col>
-    </v-row>
   </v-container>
+  <div class="text-center">
+    <v-snackbar
+      multi-line
+      :color="alert.type"
+      elevation="24"
+      :timeout="2000"
+      v-model="alert.active"
+      height="50"
+    >
+      {{ alert.text }}
+
+      <template v-slot:actions>
+        <v-btn
+          color="white"
+          variant="text"
+          @click="alert.active = false"
+          icon="mdi-close"
+        >
+        </v-btn>
+      </template>
+    </v-snackbar>
+  </div>
 </template>
   
 <script lang='ts'>
@@ -93,7 +108,7 @@ export default defineComponent({
       await this.axios
         .post("http://localhost:8080/produto", this.form)
         .then((response) => {
-          if (response.status == 201) {
+          if (response.status == 200) {
             this.alert.active = true;
             this.alert.type = "success";
             this.alert.text = "Produto cadastrado com sucesso";
