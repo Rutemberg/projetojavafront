@@ -45,12 +45,14 @@
                   <v-col cols="3">
                     <v-text-field
                       label="Nome produto"
+                      density="compact"
                       v-model="produto['nome']"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="3">
                     <v-text-field
                       label="Preco produto"
+                      density="compact"
                       v-model="produto['preco']"
                       type="number"
                     ></v-text-field>
@@ -58,12 +60,14 @@
                   <v-col cols="3">
                     <v-text-field
                       label="Codigo de barra"
+                      density="compact"
                       v-model="produto['codigobarra']"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="3">
                     <v-text-field
                       label="Quantidade"
+                      density="compact"
                       v-model="produto['quantidade']"
                       type="number"
                       append-icon="mdi-minus-box"

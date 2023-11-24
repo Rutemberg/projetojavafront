@@ -56,12 +56,14 @@
                 >
                   <v-col cols="4">
                     <v-text-field
+                      density="compact"
                       label="Rua"
                       v-model="endereco['rua']"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="4">
                     <v-text-field
+                      density="compact"
                       label="Cidade"
                       v-model="endereco['cidade']"
                     ></v-text-field>
@@ -69,6 +71,7 @@
                   <v-col cols="4">
                     <v-text-field
                       label="Estado"
+                      density="compact"
                       v-model="endereco['estado']"
                       append-icon="mdi-minus-box"
                       @click:append="removerendereco(i)"

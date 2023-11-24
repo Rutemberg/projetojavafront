@@ -56,27 +56,34 @@
                 >
                   <v-col cols="4">
                     <v-text-field
+                      density="compact"
                       label="Rua"
                       v-model="endereco['rua']"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="4">
                     <v-text-field
+                      density="compact"
                       label="Cidade"
                       v-model="endereco['cidade']"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="4">
                     <v-text-field
+                      density="compact"
                       label="Estado"
                       v-model="endereco['estado']"
-                      append-icon="mdi-map-marker-remove"
+                      append-icon="mdi-minus-box"
                       @click:append="removerendereco(i)"
                     ></v-text-field>
                   </v-col>
                 </v-row>
                 <v-col cols="12">
-                  <v-btn icon="mdi-map-marker-plus" variant="tonal" @click="adicionarrendereco"></v-btn>
+                  <v-btn
+                    icon="mdi-map-marker-plus"
+                    variant="tonal"
+                    @click="adicionarrendereco"
+                  ></v-btn>
                 </v-col>
                 <v-col cols="12">
                   <v-btn
@@ -148,7 +155,7 @@ export default defineComponent({
   async mounted() {
     await this.axios
       .get(`http://localhost:8080/cliente/${this.id}`)
-      .then((response) => (this.cliente = response.data))
+      .then((response) => (this.cliente = response.data));
   },
   methods: {
     removerendereco(i: number) {
