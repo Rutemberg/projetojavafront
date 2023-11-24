@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-app-bar color="#B81014" flat height="72">
       <v-app-bar-title
-        ><v-img width="100" src="./assets/Rubao.png"></v-img
+        ><v-img width="100" src="./assets/RubaoSemFundo.png"></v-img
       ></v-app-bar-title>
     </v-app-bar>
 
@@ -10,18 +10,24 @@
 
     <v-navigation-drawer expand-on-hover rail>
       <v-list>
-        <v-list-item color="#B81014" prepend-icon="mdi-home" title="Home" to="/"></v-list-item>
-        <v-list-group>
+        <v-list-item
+          color="#B81014"
+          prepend-icon="mdi-home"
+          title="Home"
+          to="/"
+        ></v-list-item>
+
+        <v-list-group v-for="(item, i) in menu" :key="i">
           <template v-slot:activator="{ props }">
             <v-list-item
               v-bind="props"
               color="#B81014"
-              prepend-icon="mdi-package-variant-closed"
-              title="Produtos"
+              :prepend-icon="item.icon"
+              :title="item.title"
             ></v-list-item>
           </template>
           <v-list-item
-            v-for="([title, icon, link], i) in crud_produto"
+            v-for="([title, icon, link], i) in item.crud"
             :key="i"
             :value="title"
             :title="title"
@@ -47,11 +53,25 @@ export default defineComponent({
 
   data() {
     return {
-      crud_produto: [
-        ["Cadastrar", "mdi-plus-thick", "/produto/cadastro"],
-        ["Listar", "mdi-view-list", "/produtos"],
+      menu: [
+        {
+          title: "Produto",
+          icon: "mdi-package-variant-closed",
+          crud: [
+            ["Cadastrar", "mdi-plus-thick", "/produto/cadastro"],
+            ["Listar", "mdi-view-list", "/produtos"],
+          ],
+        },
+        {
+          title: "Fornecedor",
+          icon: "mdi-archive-outline",
+          crud: [
+            ["Cadastrar", "mdi-plus-thick", "/produto/cadastro"],
+            ["Listar", "mdi-view-list", "/produtos"],
+          ],
+        },
       ],
     };
-  }
+  },
 });
 </script>

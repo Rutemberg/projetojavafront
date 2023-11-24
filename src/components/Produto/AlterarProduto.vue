@@ -2,8 +2,8 @@
   <v-container fluid>
     <v-row class="text-center">
       <titulo-bar
-        title="Cadastro de produto"
-        icon="mdi-package-variant-closed"
+        title="Cadastro de produtos"
+        icon="mdi-plus-thick"
       ></titulo-bar>
     </v-row>
     <v-row class="text-center" justify="center">
@@ -14,7 +14,7 @@
               <v-row class="pa-6">
                 <v-col cols="12" md="6">
                   <v-text-field
-                    v-model="form.nome"
+                    :v-model="formUpdate.nome"
                     label="Nome"
                     hide-details
                   ></v-text-field>
@@ -22,7 +22,7 @@
 
                 <v-col cols="12" md="3">
                   <v-text-field
-                    v-model="form.quantidade"
+                    v-model="formUpdate.quantidade"
                     label="Quantidade"
                     hide-details
                   ></v-text-field>
@@ -30,7 +30,7 @@
 
                 <v-col cols="12" md="3">
                   <v-text-field
-                    v-model="form.preco"
+                    v-model="formUpdate.preco"
                     label="Preço"
                     hide-details
                     type="number"
@@ -38,7 +38,7 @@
                 </v-col>
                 <v-col cols="12" md="12">
                   <v-text-field
-                    v-model="form.codigobarra"
+                    v-model="formUpdate.codigobarra"
                     label="Código de barra"
                     hide-details
                   ></v-text-field>
@@ -84,9 +84,15 @@ import TituloBar from "../TituloBar.vue";
 export default defineComponent({
   components: { TituloBar },
   name: "CadastrarProduto",
+  props: {
+    form: Object,
+  },
+  setup(props) {
+    console.log(props.form);
+  },
   data() {
     return {
-      form: {
+      formUpdate: {
         nome: "",
         preco: 0,
         quantidade: 0,
@@ -104,7 +110,7 @@ export default defineComponent({
       await this.axios
         .post("http://localhost:8080/produto", this.form)
         .then((response) => {
-          if (response.status == 201) {
+          if (response.status == 200) {
             this.alert.active = true;
             this.alert.type = "success";
             this.alert.text = "Produto cadastrado com sucesso";
@@ -115,6 +121,9 @@ export default defineComponent({
           this.alert.type = "error";
           this.alert.text = "Erro ao cadastrar o produto";
         })
+        .finally(() => {
+          console.log(this.form);
+        });
     },
   },
 });
