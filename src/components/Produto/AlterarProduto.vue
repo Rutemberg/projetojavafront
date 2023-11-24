@@ -44,7 +44,7 @@
                   <v-btn
                     variant="text"
                     color="#b81014"
-                    icon="mdi-backspace-outline"
+                    icon="mdi-view-list"
                     size="x-large"
                     class="mr-3"
                     to="/produtos"
