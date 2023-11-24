@@ -1,10 +1,7 @@
 <template>
   <v-container fluid>
     <v-row class="text-center">
-      <titulo-bar
-        title="Cadastro de produtos"
-        icon="mdi-plus-thick"
-      ></titulo-bar>
+      <titulo-bar title="Alterar Produto" icon="mdi-plus-thick"></titulo-bar>
     </v-row>
     <v-row class="text-center" justify="center">
       <v-col cols="12" md="6">
@@ -14,7 +11,7 @@
               <v-row class="pa-6">
                 <v-col cols="12" md="6">
                   <v-text-field
-                    :v-model="formUpdate.nome"
+                    v-model="formUpdate.nome"
                     label="Nome"
                     hide-details
                   ></v-text-field>
@@ -43,8 +40,16 @@
                     hide-details
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="12">
-                  <v-btn color="#b81014" type="submit"> Cadastrar </v-btn>
+                <v-col cols="12" offset="4">
+                  <v-btn
+                    variant="text"
+                    color="#b81014"
+                    icon="mdi-backspace-outline"
+                    size="x-large"
+                    class="mr-3"
+                    to="/produtos"
+                  ></v-btn>
+                  <v-btn color="#b81014" type="submit"> Alterar </v-btn>
                 </v-col>
               </v-row>
             </v-container>
@@ -83,13 +88,8 @@ import TituloBar from "../TituloBar.vue";
 
 export default defineComponent({
   components: { TituloBar },
-  name: "CadastrarProduto",
-  props: {
-    form: Object,
-  },
-  setup(props) {
-    console.log(props.form);
-  },
+  name: "AlterarProduto",
+  props: ["id"],
   data() {
     return {
       formUpdate: {
@@ -105,25 +105,30 @@ export default defineComponent({
       },
     };
   },
+  async mounted() {
+    await this.axios
+      .get(`http://localhost:8080/produto/${this.id}`)
+      .then((response) => (this.formUpdate = response.data));
+  },
   methods: {
     async submitForm() {
       await this.axios
-        .post("http://localhost:8080/produto", this.form)
+        .put(`http://localhost:8080/produto/${this.id}`, this.formUpdate)
         .then((response) => {
           if (response.status == 200) {
             this.alert.active = true;
             this.alert.type = "success";
-            this.alert.text = "Produto cadastrado com sucesso";
+            this.alert.text = "Produto alterado com sucesso";
+            this.formUpdate = response.data;
           }
         })
         .catch(() => {
           this.alert.active = true;
           this.alert.type = "error";
-          this.alert.text = "Erro ao cadastrar o produto";
+          this.alert.text = "Erro ao alterar o produto";
         })
-        .finally(() => {
-          console.log(this.form);
-        });
+        /* eslint-disable */
+        .finally(() => {});
     },
   },
 });

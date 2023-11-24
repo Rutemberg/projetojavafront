@@ -66,7 +66,12 @@
                 >
                   Deletar
                 </v-btn>
-                <v-btn color="dark" variant="text"> Alterar </v-btn>
+                <v-btn
+                  color="dark"
+                  variant="text"
+                  :to="`/produto/${produto['id']}`">
+                  Alterar
+                </v-btn>
               </div>
             </v-list-item>
           </v-card-actions>

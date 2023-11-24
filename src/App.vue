@@ -58,7 +58,7 @@ export default defineComponent({
           title: "Produto",
           icon: "mdi-package-variant-closed",
           crud: [
-            ["Cadastrar", "mdi-plus-thick", "/produto/cadastro"],
+            ["Cadastrar", "mdi-plus-thick", "/produto"],
             ["Listar", "mdi-view-list", "/produtos"],
           ],
         },
@@ -66,7 +66,7 @@ export default defineComponent({
           title: "Fornecedor",
           icon: "mdi-archive-outline",
           crud: [
-            ["Cadastrar", "mdi-plus-thick", "/produto/cadastro"],
+            ["Cadastrar", "mdi-plus-thick", "/produto"],
             ["Listar", "mdi-view-list", "/produtos"],
           ],
         },
