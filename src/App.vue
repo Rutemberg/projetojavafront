@@ -70,6 +70,14 @@ export default defineComponent({
             ["Listar", "mdi-view-list", "/clientes"],
           ],
         },
+        {
+          title: "Funcionario",
+          icon: "mdi-badge-account",
+          crud: [
+            ["Cadastrar", "mdi-plus-thick", "/funcionario"],
+            ["Listar", "mdi-view-list", "/funcionarios"],
+          ],
+        },
       ],
     };
   },
