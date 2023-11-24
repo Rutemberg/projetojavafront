@@ -73,7 +73,7 @@
                 </v-row>
                 <v-col cols="12">
                   <v-btn
-                    icon="mdi-package-variant-closed"
+                    icon="mdi-tag-outline"
                     variant="tonal"
                     @click="adicionarrproduto"
                   ></v-btn>

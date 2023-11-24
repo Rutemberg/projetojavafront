@@ -3,7 +3,7 @@
     <v-row class="text-center">
       <titulo-bar
         title="Cadastro de produto"
-        icon="mdi-package-variant-closed"
+        icon="mdi-tag-outline"
       ></titulo-bar>
     </v-row>
     <v-row class="text-center" justify="center">

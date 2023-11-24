@@ -56,7 +56,7 @@ export default defineComponent({
       menu: [
         {
           title: "Produto",
-          icon: "mdi-package-variant-closed",
+          icon: "mdi-tag-outline",
           crud: [
             ["Cadastrar", "mdi-plus-thick", "/produto"],
             ["Listar", "mdi-view-list", "/produtos"],

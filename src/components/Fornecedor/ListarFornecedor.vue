@@ -50,7 +50,7 @@
                       "
                       color="error"
                     >
-                      <v-icon>mdi-package-variant-closed</v-icon>
+                      <v-icon>mdi-tag-multiple</v-icon>
                     </v-badge>
                   </div>
                 </template>

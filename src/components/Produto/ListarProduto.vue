@@ -3,7 +3,7 @@
     <v-row class="text-center">
       <titulo-bar
         title="Produtos"
-        icon="mdi-package-variant-closed"
+        icon="mdi-tag-outline"
       ></titulo-bar>
 
       <v-col cols="12">
@@ -30,34 +30,49 @@
       <v-col cols="3" v-for="produto in produtos" :key="produto['id']">
         <v-card elevation="10" color="#f4c808">
           <div class="text-start">
-            <v-card-title class="text-h5">
-              {{ produto["nome"] }}
+            <v-card-title>
+              <v-list-item class="w-100">
+                <template v-slot:prepend>
+                  <v-avatar color="#B81014">
+                    <v-icon icon="mdi-tag-outline"></v-icon>
+                  </v-avatar>
+                </template>
+
+                <v-list-item-title>{{ produto["nome"] }}</v-list-item-title>
+
+                <v-list-item-subtitle>{{
+                  produto["email"]
+                }}</v-list-item-subtitle>
+
+                <template v-slot:append>
+                  <div class="justify-self-end">
+                    <v-badge :content="produto['quantidade']" color="error">
+                      <v-icon>mdi-tag-multiple</v-icon>
+                    </v-badge>
+                  </div>
+                </template>
+              </v-list-item>
             </v-card-title>
 
             <v-card-subtitle>
               <v-chip class="ma-2" color="black" label>
-                <v-icon start icon="mdi-label"></v-icon>
+                <v-icon start icon="mdi-currency-usd"></v-icon>
+                {{ produto["preco"] }}</v-chip
+              >
+              <v-chip class="ma-2" color="black" label>
+                <v-icon start icon="mdi-barcode"></v-icon>
                 {{ produto["codigobarra"] }}</v-chip
               >
             </v-card-subtitle>
           </div>
-          <v-card-text class="py-0 text-end mt-4">
-            <span class="text-h4">
-              R$ {{ formatPrice(produto["preco"]) }}
-            </span>
-          </v-card-text>
+          <v-card-text class="py-0 text-end mt-4"> </v-card-text>
           <v-card-actions class="mt-3">
             <v-list-item class="w-100">
               <template v-slot:append>
-                <div class="justify-self-end">
-                  <v-icon class="me-1" icon="mdi-tag-multiple"></v-icon>
-                  <span class="subheading mr-4">{{
-                    produto["quantidade"]
-                  }}</span>
-                  <v-icon class="me-1" icon="mdi-identifier"></v-icon>
-                  <span class="subheading">{{ produto["id"] }}</span>
-                </div>
+                <v-icon class="me-1" icon="mdi-identifier"></v-icon>
+                <span class="subheading">{{ produto["id"] }}</span>
               </template>
+
               <div class="text-left">
                 <v-btn
                   color="red"
@@ -69,7 +84,8 @@
                 <v-btn
                   color="dark"
                   variant="text"
-                  :to="`/produto/${produto['id']}`">
+                  :to="`/produto/${produto['id']}`"
+                >
                   Alterar
                 </v-btn>
               </div>
