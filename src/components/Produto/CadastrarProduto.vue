@@ -44,6 +44,14 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="12">
+                  <v-btn
+                    variant="text"
+                    color="#b81014"
+                    icon="mdi-backspace-outline"
+                    size="x-large"
+                    class="mr-3"
+                    to="/produtos"
+                  ></v-btn>
                   <v-btn color="#b81014" type="submit"> Cadastrar </v-btn>
                 </v-col>
               </v-row>

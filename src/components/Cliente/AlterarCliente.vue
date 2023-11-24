@@ -36,6 +36,7 @@
                   <v-text-field
                     v-model="cliente.email"
                     label="Email"
+                    type="email"
                     hide-details
                   ></v-text-field>
                 </v-col>
