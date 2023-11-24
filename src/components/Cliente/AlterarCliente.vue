@@ -75,7 +75,7 @@
                   </v-col>
                 </v-row>
                 <v-col cols="12">
-                  <v-btn icon="mdi-map-marker-plus" variant="text" @click="adicionarrendereco"></v-btn>
+                  <v-btn icon="mdi-map-marker-plus" variant="tonal" @click="adicionarrendereco"></v-btn>
                 </v-col>
                 <v-col cols="12">
                   <v-btn
