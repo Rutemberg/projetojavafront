@@ -27,8 +27,8 @@
         </v-card>
       </v-col>
 
-      <v-col cols="3" v-for="produto in produtos" :key="produto['id']">
-        <v-card elevation="10" color="#f4c808">
+      <v-col v-for="produto in produtos" :key="produto['id']" md="3">
+        <v-card elevation="10" color="#f4c808" class="mx-auto">
           <div class="text-start">
             <v-card-title>
               <v-list-item class="w-100">

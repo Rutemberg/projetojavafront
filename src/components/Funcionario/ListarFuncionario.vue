@@ -24,8 +24,8 @@
         </v-card>
       </v-col>
 
-      <v-col cols="3" v-for="funcionario in funcionarios" :key="funcionario['id']">
-        <v-card elevation="10" color="#f4c808">
+      <v-col v-for="funcionario in funcionarios" :key="funcionario['id']" md="3">
+        <v-card elevation="10" color="#f4c808" class="mx-auto">
           <div class="text-start">
             <v-card-title>
               <v-list-item class="w-100">
