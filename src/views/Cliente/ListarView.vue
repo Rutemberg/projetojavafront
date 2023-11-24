@@ -1,18 +1,16 @@
 <template>
-  <listar-produto />
+  <listar-cliente />
 </template>
   
 <script lang="ts">
+import ListarCliente from "../../components/Cliente/ListarCliente.vue";
 import { defineComponent } from "vue";
-
-// Components
-import ListarProduto from "@/components/Produto/ListarProduto.vue";
 
 export default defineComponent({
   name: "ListarView",
 
   components: {
-    ListarProduto,
+    ListarCliente,
   },
 });
 </script>

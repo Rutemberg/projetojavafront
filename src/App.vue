@@ -17,7 +17,7 @@
           to="/"
         ></v-list-item>
 
-        <v-list-group v-for="(item, i) in menu" :key="i">
+        <v-list-group v-for="(item, i) in menu" :key="i" :value="item.title">
           <template v-slot:activator="{ props }">
             <v-list-item
               v-bind="props"
@@ -63,11 +63,11 @@ export default defineComponent({
           ],
         },
         {
-          title: "Fornecedor",
-          icon: "mdi-archive-outline",
+          title: "Cliente",
+          icon: "mdi-account",
           crud: [
-            ["Cadastrar", "mdi-plus-thick", "/produto"],
-            ["Listar", "mdi-view-list", "/produtos"],
+            ["Cadastrar", "mdi-plus-thick", "/cliente"],
+            ["Listar", "mdi-view-list", "/clientes"],
           ],
         },
       ],

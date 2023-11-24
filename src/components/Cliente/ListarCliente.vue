@@ -1,10 +1,7 @@
 <template>
   <v-container fluid>
     <v-row class="text-center">
-      <titulo-bar
-        title="Produtos"
-        icon="mdi-package-variant-closed"
-      ></titulo-bar>
+      <titulo-bar title="Clientes" icon="mdi-account"></titulo-bar>
 
       <v-col cols="12">
         <v-card
@@ -16,60 +13,82 @@
           <v-card-text>
             <v-text-field
               :loading="loading"
-              label="Procurar produto pelo nome"
+              label="Procurar cliente pelo nome"
               append-inner-icon="mdi-magnify"
               v-model="search"
               single-line
               hide-details
-              @input="onClick"
+              @input="pesquisarcliente"
             ></v-text-field>
           </v-card-text>
         </v-card>
       </v-col>
 
-      <v-col cols="3" v-for="produto in produtos" :key="produto['id']">
+      <v-col cols="3" v-for="cliente in clientes" :key="cliente['id']">
         <v-card elevation="10" color="#f4c808">
           <div class="text-start">
-            <v-card-title class="text-h5">
-              {{ produto["nome"] }}
+            <v-card-title>
+              <v-list-item class="w-100">
+                <template v-slot:prepend>
+                  <v-avatar
+                    color="grey-darken-3"
+                    image="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                  ></v-avatar>
+                </template>
+
+                <v-list-item-title>{{ cliente["nome"] }}</v-list-item-title>
+
+                <v-list-item-subtitle>{{
+                  cliente["email"]
+                }}</v-list-item-subtitle>
+
+                <template v-slot:append>
+                  <div class="justify-self-end">
+                    <v-badge
+                      :content="
+                        JSON.parse(JSON.stringify(cliente['enderecos'])).length
+                      "
+                      color="error"
+                    >
+                      <v-icon>mdi-map-marker</v-icon>
+                    </v-badge>
+                  </div>
+                </template>
+              </v-list-item>
             </v-card-title>
 
             <v-card-subtitle>
               <v-chip class="ma-2" color="black" label>
-                <v-icon start icon="mdi-label"></v-icon>
-                {{ produto["codigobarra"] }}</v-chip
+                <v-icon start icon="mdi-phone"></v-icon>
+                {{ cliente["telefone"] }}</v-chip
+              >
+              <v-chip class="ma-2" color="black" label>
+                <v-icon start icon="mdi-card-account-details-outline"></v-icon>
+                {{ cliente["cpf"] }}</v-chip
               >
             </v-card-subtitle>
           </div>
-          <v-card-text class="py-0 text-end mt-4">
-            <span class="text-h4">
-              R$ {{ formatPrice(produto["preco"]) }}
-            </span>
-          </v-card-text>
+          <v-card-text class="py-0 text-end mt-4"> </v-card-text>
           <v-card-actions class="mt-3">
             <v-list-item class="w-100">
               <template v-slot:append>
-                <div class="justify-self-end">
-                  <v-icon class="me-1" icon="mdi-tag-multiple"></v-icon>
-                  <span class="subheading mr-4">{{
-                    produto["quantidade"]
-                  }}</span>
-                  <v-icon class="me-1" icon="mdi-identifier"></v-icon>
-                  <span class="subheading">{{ produto["id"] }}</span>
-                </div>
+                <v-icon class="me-1" icon="mdi-identifier"></v-icon>
+                <span class="subheading">{{ cliente["id"] }}</span>
               </template>
+
               <div class="text-left">
                 <v-btn
                   color="red"
                   variant="flat"
-                  @click="deleteproduct(produto['id'])"
+                  @click="deletecliente(cliente['id'])"
                 >
                   Deletar
                 </v-btn>
                 <v-btn
                   color="dark"
                   variant="text"
-                  :to="`/produto/${produto['id']}`">
+                  :to="`/cliente/${cliente['id']}`"
+                >
                   Alterar
                 </v-btn>
               </div>
@@ -108,13 +127,13 @@ import { defineComponent } from "vue";
 import TituloBar from "../TituloBar.vue";
 
 export default defineComponent({
-  name: "ListarProduto",
+  name: "ListarCliente",
   components: {
     TituloBar,
   },
   data() {
     return {
-      produtos: [],
+      clientes: [],
       alert: {
         active: false,
         type: "info",
@@ -127,48 +146,44 @@ export default defineComponent({
   },
   async mounted() {
     await this.axios
-      .get("http://localhost:8080/produto")
-      .then((response) => (this.produtos = response.data));
+      .get("http://localhost:8080/cliente")
+      .then((response) => (this.clientes = response.data));
   },
   methods: {
-    formatPrice(value: number) {
-      let val = (value / 1).toFixed(2).replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    },
-    async deleteproduct(value: number) {
+    async deletecliente(value: number) {
       await this.axios
-        .delete(`http://localhost:8080/produto/${value}`)
+        .delete(`http://localhost:8080/cliente/${value}`)
         .then((response) => {
           if (response.status == 200) {
             this.alert.active = true;
             this.alert.type = "success";
-            this.alert.text = "Produto excluido com sucesso";
+            this.alert.text = "Cliente excluido com sucesso";
           }
         })
         .catch(() => {
           this.alert.active = true;
           this.alert.type = "error";
-          this.alert.text = "Erro ao excluir o produto";
+          this.alert.text = "Erro ao excluir o cliente";
         })
         .finally(async () => {
           await this.axios
-            .get(`http://localhost:8080/produto/search?nome=${this.search}`, {})
-            .then((response) => (this.produtos = response.data));
+            .get(`http://localhost:8080/cliente/search?nome=${this.search}`, {})
+            .then((response) => (this.clientes = response.data));
         });
     },
     /* eslint-disable */
-    async onClick(event: any) {
+    async pesquisarcliente(event: any) {
       this.loading = true;
       await this.axios
         .get(
-          `http://localhost:8080/produto/search?nome=${event.target.value}`,
+          `http://localhost:8080/cliente/search?nome=${event.target.value}`,
           {}
         )
-        .then((response) => (this.produtos = response.data))
+        .then((response) => (this.clientes = response.data))
         .catch(() => {
           this.alert.active = true;
           this.alert.type = "info";
-          this.alert.text = "Nenhum produto encontrado";
+          this.alert.text = "Nenhum cliente encontrado";
         });
       setTimeout(() => {
         this.loading = false;
