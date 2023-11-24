@@ -29,7 +29,7 @@
           <v-list-item
             v-for="([title, icon, link], i) in item.crud"
             :key="i"
-            :value="title"
+            :value="item.title"
             :title="title"
             :prepend-icon="icon"
             :to="link"
