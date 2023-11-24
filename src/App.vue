@@ -1,6 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-app-bar color="#B81014" flat height="72">
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-app-bar-title
         ><v-img width="100" src="./assets/RubaoSemFundo.png"></v-img
       ></v-app-bar-title>
@@ -8,7 +9,7 @@
 
     <v-footer app color="#F4C808" height="20"></v-footer>
 
-    <v-navigation-drawer expand-on-hover rail>
+    <v-navigation-drawer expand-on-hover rail v-model="drawer">
       <v-list>
         <v-list-item
           color="#B81014"
@@ -53,6 +54,7 @@ export default defineComponent({
 
   data() {
     return {
+      drawer: true,
       menu: [
         {
           title: "Produto",
