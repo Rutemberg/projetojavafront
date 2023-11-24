@@ -54,6 +54,22 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
     name: 'alterar funcionario',
     component: () => import('../views/Funcionario/AlterarView.vue')
+  },
+  {
+    path: '/fornecedores',
+    name: 'fornecedores',
+    component: () => import('../views/Fornecedor/ListarView.vue')
+  },
+  {
+    path: '/fornecedor',
+    name: 'cadastro fornecedor',
+    component: () => import('../views/Fornecedor/CadastroView.vue')
+  },
+  {
+    path: '/fornecedor/:id',
+    props: true,
+    name: 'alterar fornecedor',
+    component: () => import('../views/Fornecedor/AlterarView.vue')
   }
 ]
 

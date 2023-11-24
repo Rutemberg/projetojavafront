@@ -78,6 +78,14 @@ export default defineComponent({
             ["Listar", "mdi-view-list", "/funcionarios"],
           ],
         },
+        {
+          title: "Fornecedor",
+          icon: "mdi-archive-arrow-down-outline",
+          crud: [
+            ["Cadastrar", "mdi-plus-thick", "/fornecedor"],
+            ["Listar", "mdi-view-list", "/fornecedores"],
+          ],
+        },
       ],
     };
   },

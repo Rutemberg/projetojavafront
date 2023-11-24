@@ -1,10 +1,7 @@
 <template>
   <v-container fluid>
     <v-row class="text-center">
-      <titulo-bar
-        title="Cadastro de cliente"
-        icon="mdi-account"
-      ></titulo-bar>
+      <titulo-bar title="Cadastro de cliente" icon="mdi-account"></titulo-bar>
     </v-row>
     <v-row class="text-center" justify="center">
       <v-col cols="12" md="6">
@@ -73,13 +70,17 @@
                     <v-text-field
                       label="Estado"
                       v-model="endereco['estado']"
-                      append-icon="mdi-map-marker-remove"
+                      append-icon="mdi-minus-box"
                       @click:append="removerendereco(i)"
                     ></v-text-field>
                   </v-col>
                 </v-row>
                 <v-col cols="12">
-                  <v-btn icon="mdi-map-marker-plus" variant="tonal" @click="adicionarrendereco"></v-btn>
+                  <v-btn
+                    icon="mdi-map-marker-plus"
+                    variant="tonal"
+                    @click="adicionarrendereco"
+                  ></v-btn>
                 </v-col>
                 <v-col cols="12">
                   <v-btn
@@ -171,7 +172,7 @@ export default defineComponent({
           this.alert.active = true;
           this.alert.type = "error";
           this.alert.text = "Erro ao cadastrar o cliente";
-        })
+        });
     },
   },
 });

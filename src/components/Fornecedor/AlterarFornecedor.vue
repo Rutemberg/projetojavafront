@@ -2,8 +2,8 @@
   <v-container fluid>
     <v-row class="text-center">
       <titulo-bar
-        title="Cadastro de funcionario"
-        icon="mdi-badge-account"
+        title="Alterar Fornecedor"
+        icon="mdi-archive-arrow-down-outline"
       ></titulo-bar>
     </v-row>
     <v-row class="text-center" justify="center">
@@ -14,7 +14,7 @@
               <v-row class="pa-6">
                 <v-col cols="12" md="6">
                   <v-text-field
-                    v-model="funcionario.nome"
+                    v-model="fornecedor.nome"
                     label="Nome"
                     hide-details
                   ></v-text-field>
@@ -22,7 +22,7 @@
 
                 <v-col cols="12" md="3">
                   <v-text-field
-                    v-model="funcionario.cpf"
+                    v-model="fornecedor.cnpj"
                     label="CPF"
                     hide-details
                   ></v-text-field>
@@ -30,77 +30,52 @@
 
                 <v-col cols="12" md="3">
                   <v-text-field
-                    v-model="funcionario.telefone"
+                    v-model="fornecedor.telefone"
                     label="Telefone"
                     hide-details
                   ></v-text-field>
                 </v-col>
-                <v-col cols="6">
-                  <v-text-field
-                    v-model="funcionario.email"
-                    label="Email"
-                    type="email"
-                    hide-details
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="6"></v-col>
 
-                <v-col cols="4">
-                  <v-text-field
-                    v-model="funcionario.matricula"
-                    label="Matricula"
-                    hide-details
-                    type="text"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="4">
-                  <v-text-field
-                    v-model="funcionario.cargo"
-                    label="Cargo"
-                    hide-details
-                    type="text"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="4">
-                  <v-text-field
-                    v-model="funcionario.salario"
-                    label="Salario"
-                    hide-details
-                    type="number"
-                  ></v-text-field>
-                </v-col>
                 <v-divider class="my-5"></v-divider>
                 <v-row
                   class="w-100"
-                  v-for="(endereco, i) in funcionario.enderecos"
+                  v-for="(produto, i) in fornecedor.produtos"
                   :key="i"
                 >
-                  <v-col cols="4">
+                  <v-col cols="3">
                     <v-text-field
-                      label="Rua"
-                      v-model="endereco['rua']"
+                      label="Nome produto"
+                      v-model="produto['nome']"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="4">
+                  <v-col cols="3">
                     <v-text-field
-                      label="Cidade"
-                      v-model="endereco['cidade']"
+                      label="Preco produto"
+                      v-model="produto['preco']"
+                      type="number"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="4">
+                  <v-col cols="3">
                     <v-text-field
-                      label="Estado"
-                      v-model="endereco['estado']"
+                      label="Codigo de barra"
+                      v-model="produto['codigobarra']"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="3">
+                    <v-text-field
+                      label="Quantidade"
+                      v-model="produto['quantidade']"
                       append-icon="mdi-minus-box"
-                      @click:append="removerendereco(i)"
+                      type="number"
+                      @click:append="removerproduto(i)"
                     ></v-text-field>
                   </v-col>
                 </v-row>
                 <v-col cols="12">
                   <v-btn
-                    icon="mdi-map-marker-plus"
+                    icon="mdi-package-variant-closed"
                     variant="tonal"
-                    @click="adicionarrendereco"
+                    @click="adicionarrproduto"
                   ></v-btn>
                 </v-col>
                 <v-col cols="12">
@@ -110,9 +85,9 @@
                     icon="mdi-backspace-outline"
                     size="x-large"
                     class="mr-3"
-                    to="/funcionarios"
+                    to="/fornecedores"
                   ></v-btn>
-                  <v-btn color="#b81014" type="submit"> Cadastrar </v-btn>
+                  <v-btn color="#b81014" type="submit"> Alterar </v-btn>
                 </v-col>
               </v-row>
             </v-container>
@@ -148,22 +123,18 @@
 <script lang='ts'>
 import { defineComponent } from "vue";
 import TituloBar from "../TituloBar.vue";
-
 export default defineComponent({
   components: { TituloBar },
-  name: "CadastrarFuncionario",
+  name: "AlterarFornecedor",
+  props: ["id"],
   data() {
     return {
-      funcionario: {
+      fornecedor: {
         nome: "",
-        cpf: "",
+        cnpj: "",
         telefone: "",
-        email: "",
-        matricula: "",
-        cargo: "",
-        salario: 0,
         /* eslint-disable */
-        enderecos: [] as Array<any>,
+        produtos: [] as Array<any>,
       },
       alert: {
         active: false,
@@ -172,30 +143,43 @@ export default defineComponent({
       },
     };
   },
+  async mounted() {
+    await this.axios
+      .get(`http://localhost:8080/fornecedor/${this.id}`)
+      .then((response) => (this.fornecedor = response.data));
+  },
   methods: {
-    removerendereco(i: number) {
-      this.funcionario.enderecos.splice(i, 1);
-      console.log(this.funcionario.enderecos);
+    removerproduto(i: number) {
+      this.fornecedor.produtos.splice(i, 1);
+      console.log(this.fornecedor.produtos);
     },
-    adicionarrendereco() {
-      this.funcionario.enderecos.push({ rua: "", cidade: "", estado: "" });
-      console.log(this.funcionario.enderecos);
+    adicionarrproduto() {
+      this.fornecedor.produtos.push({
+        nome: "",
+        preco: 0,
+        quantidade: 0,
+        codigobarra: "",
+      });
+      console.log(this.fornecedor.produtos);
     },
     async submitForm() {
       await this.axios
-        .post("http://localhost:8080/funcionario", this.funcionario)
+        .put(`http://localhost:8080/fornecedor/${this.id}`, this.fornecedor)
         .then((response) => {
-          if (response.status == 201) {
+          if (response.status == 200) {
             this.alert.active = true;
             this.alert.type = "success";
-            this.alert.text = "Funcionario cadastrado com sucesso";
+            this.alert.text = "Fornecedor alterado com sucesso";
+            this.fornecedor = response.data;
           }
         })
         .catch(() => {
           this.alert.active = true;
           this.alert.type = "error";
-          this.alert.text = "Erro ao cadastrar o funcionario";
-        });
+          this.alert.text = "Erro ao alterar o fornecedor";
+        })
+        /* eslint-disable */
+        .finally(() => {});
     },
   },
 });
